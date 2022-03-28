@@ -5,7 +5,7 @@ function Navigation() {
     return (
         <div className="navigation">
             <nav className="navbar navbar-expand navbar-dark bg-dark">
-                <div className="container">
+                <div className="navbar">
                     <NavLink className="navbar-brand" to="/">
                         DigitalAssets
                     </NavLink>

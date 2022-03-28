@@ -62,7 +62,25 @@ function Houston() {
                     id: 7,
                     app_name: "DA-FEEDHANDLER",
                     instance: "FTX_PERP.DOGE.TOP_OF_BOOK",
-                    state: "STOPPED",
+                    state: "RUNNING",
+                },
+                {
+                    id: 8,
+                    app_name: "DA-FEEDHANDLER",
+                    instance: "FTX_SPOT.DOGE.TOP_OF_BOOK",
+                    state: "RUNNING",
+                },
+                {
+                    id: 9,
+                    app_name: "DA-FEEDHANDLER",
+                    instance: "BINANCE_LINEAR.DOGE.TOP_OF_BOOK",
+                    state: "RUNNING",
+                },
+                {
+                    id: 10,
+                    app_name: "DA-FEEDHANDLER",
+                    instance: "BYBIT_LINEAR.DOGE.TOP_OF_BOOK",
+                    state: "RUNNING",
                 },
             ]
         )

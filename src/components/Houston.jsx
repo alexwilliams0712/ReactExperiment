@@ -82,6 +82,18 @@ function Houston() {
                     instance: "BYBIT_LINEAR.DOGE.TOP_OF_BOOK",
                     state: "RUNNING",
                 },
+                {
+                    id: 11,
+                    app_name: "DA-BASIS",
+                    instance: "DA-BASIS.DOGE",
+                    state: "RUNNING",
+                },
+                {
+                    id: 12,
+                    app_name: "DA-BASIS",
+                    instance: "DA-BASIS.LUNA",
+                    state: "STOPPED",
+                },
             ]
         )
     }

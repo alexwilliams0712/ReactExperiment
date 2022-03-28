@@ -7,7 +7,7 @@ import Popup from 'reactjs-popup';
 function Houston() {
     const columns = [{
         dataField: 'misc_components',
-        text: 'Misc Components'
+        text: 'MISC'
     }, {
         dataField: 'da_basis',
         text: 'DA-BASIS'
@@ -58,11 +58,17 @@ function Houston() {
                     instance: "DA-FUNDING.FTX_PERP",
                     state: "STOPPED",
                 },
+                {
+                    id: 7,
+                    app_name: "DA-FEEDHANDLER",
+                    instance: "FTX_PERP.DOGE.TOP_OF_BOOK",
+                    state: "STOPPED",
+                },
             ]
         )
     }
 
-    function get_view_all_template(app_name, strategy) {
+    function get_view_all_template(app_name, instance) {
         const popup_columns = [{
             dataField: 'app_name',
             text: 'App Name'
@@ -83,7 +89,10 @@ function Houston() {
             <BootstrapTable
                 keyField="id"
                 data={get_all_app_statuses().filter(function (app) {
-                    return (app.app_name === app_name) & (app.instance.includes(strategy));
+                    if (instance === "MISC")
+                    {return (app.app_name === app_name)} else {
+                        return (app.app_name === app_name) & (app.instance.includes(instance))
+                    }
                 })}
                 columns={popup_columns}
                 bordered={false}
@@ -93,13 +102,14 @@ function Houston() {
         )
     }
 
-    function get_overall_app_state_css(app_name, strategy) {
+    function get_overall_app_state_css(app_name, instance) {
         let apps = get_all_app_statuses().filter(function (app) {
-            return (app.app_name === app_name) & (app.instance.includes(strategy));
+            if (instance === "MISC")
+            {return (app.app_name === app_name)} else {
+                return (app.app_name === app_name) & (app.instance.includes(instance))
+            }
         })
-        console.log(apps)
         const app_states = apps.map(item => item.state)
-        console.log(app_states)
         if (app_states.includes("DEAD")) {
             return "red"
         } else if (app_states.includes("STOPPED")) {
@@ -111,9 +121,9 @@ function Houston() {
         }
     }
 
-    function get_card_template(name, strategy) {
+    function get_card_template(name, instance) {
         return (
-            <Card style={{width: '20rem', backgroundColor: get_overall_app_state_css(name, strategy)}}>
+            <Card style={{width: '20rem', backgroundColor: get_overall_app_state_css(name, instance)}}>
                 <Card.Body>
                     <Card.Title>{name}</Card.Title>
                     <Popup
@@ -128,7 +138,7 @@ function Houston() {
                         }}
                         arrow={false}
                     >
-                        {get_view_all_template(name, strategy)}
+                        {get_view_all_template(name, instance)}
 
                     </Popup>
                     <Button variant="success" className="button-small">Start All</Button>
@@ -143,33 +153,30 @@ function Houston() {
     let data = [
         {
             id: 1,
-            misc_components: get_card_template("DA-FEEDHANDLER-TOB", "Misc Components"),
+            misc_components: get_card_template("DA-FEEDHANDLER", "MISC"),
             da_basis: get_card_template("DA-BASIS", "DA-BASIS"),
             da_funding: get_card_template("DA-FUNDING", "DA-FUNDING"),
             da_pca: get_card_template("DA-PCA", "DA-PCA"),
         },
         {
             id: 2,
-            misc_components: get_card_template("DA-FEEDHANDLER-OB", "Misc Components"),
+            misc_components: get_card_template("DA-INSTRUMENT-DATA", "MISC"),
             da_basis: get_card_template("DA-TYBURN", "DA-BASIS"),
             da_funding: get_card_template("DA-TYBURN", "DA-FUNDING"),
             da_pca: get_card_template("DA-TYBURN", "DA-PCA"),
         },
         {
             id: 3,
-            misc_components: get_card_template("DA-FEEDHANDLER-PT", "Misc Components"),
             da_basis: get_card_template("DA-FEED-AGGREGATOR", "DA-BASIS"),
         },
         {
             id: 4,
-            misc_components: get_card_template("DA-FEEDHANDLER-FUNDING", "Misc Components"),
             da_basis: get_card_template("DA-ACCOUNT-INFO", "DA-BASIS"),
             da_funding: get_card_template("DA-ACCOUNT-INFO", "DA-FUNDING"),
             da_pca: get_card_template("DA-ACCOUNT-INFO", "DA-PCA"),
         },
         {
             id: 5,
-            misc_components: get_card_template("DA-INSTRUMENT-DATA", "Misc Components"),
             da_basis: get_card_template("DA-FEED-AGGREGATOR", "DA-BASIS"),
         }
     ]

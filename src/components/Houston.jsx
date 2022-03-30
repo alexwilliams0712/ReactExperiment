@@ -17,7 +17,8 @@ class Houston extends React.Component {
         },]
     }
 
-    high_level_data = [
+    get_high_level_data(){
+    return ([
         {
             id: 1,
             misc_components: this.get_card_template("DA-FEEDHANDLER", "MISC"),
@@ -42,7 +43,7 @@ class Houston extends React.Component {
             id: 4,
             da_basis: this.get_card_template("DA-FEED-AGGREGATOR", "DA-BASIS"),
         },
-    ]
+    ])}
 
 
     componentDidMount() {
@@ -64,9 +65,8 @@ class Houston extends React.Component {
 
     onMessage = (ev) => {
         const recv = JSON.parse(ev.data)
-        // const {data} = this.state
-        // data.push({value: recv.value})
-        this.setState({low_level_data: recv})
+        let newData = JSON.parse(recv)
+        this.setState({low_level_data: newData})
     }
 
     get_overall_app_state_css(app_name, instance) {
@@ -167,6 +167,7 @@ class Houston extends React.Component {
 
 
     render() {
+
         return (
             <div className="houston">
                 <div className="container">
@@ -174,7 +175,7 @@ class Houston extends React.Component {
                         <div className="col-sm-1">
                             <BootstrapTable
                                 keyField="id"
-                                data={this.high_level_data}
+                                data={this.get_high_level_data()}
                                 columns={this.columns}
                                 bordered={false}
                                 bootstrap4={true}
